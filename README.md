@@ -1,32 +1,36 @@
-//Pour start le projet : 
-pnpm install
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-//Base de donnée postgresql :
-- Donc créé une BD en ligne : neon.tech : mettre http://localhost:3000/ partout
-- Récupérer l'url de connexion à votre base de donnée
-- insérer cet url dans le fichier .env.local du projet 
+## Getting Started
 
-// créer une clé openSSL
-- lancer dan sl terminal :openssl rand -base64 32
-- copié la clé ssl dans le .env
+First, run the development server:
 
-//Push la base de donnée :
-- pnpm prisma db push
-
-
-//Créer une app sur google cloud :
-- Créer un projet sur google cloud
-- Créer une app sur google cloud
-- Activé l'API Google+
-- Configuré les URI autorisés
-- Ajouté http://localhost:3000/api/auth/callback/google aux URI de redirection
-- Récupérer l'id client et le secret client
-- insérer ces id et secret dans le fichier .env.local du projet 
-
-//Lancer le projet :
+```bash
+npm run dev
+# or
+yarn dev
+# or
 pnpm dev
+# or
+bun dev
+```
 
-//lancer prisma studio:
-pnpm prisma studio
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-//Vérifier que le système d'auth google fonctionne !
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

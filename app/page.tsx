@@ -1,22 +1,19 @@
-"use client"
-
-import { signIn, signOut, useSession } from "next-auth/react"
+import { signIn } from "@/auth"
 
 export default function Home() {
-  const { data: session, status } = useSession()
-console.log(session)
-  if (status === "loading") {
-    return <div>Chargement...</div>
-  }
-
-  if (session) {
-    return (
-      <div>
-        Connecté en tant que {session.user?.email}
-        <button onClick={() => signOut()}>Se déconnecter</button>
-      </div>
-    )
-  }
-
-  return <button onClick={() => signIn("google")}>Se connecter avec Google</button>
+  return (
+    <div>
+      <form
+        action={async () => {
+          "use server"
+          await signIn("google", {
+            redirectTo: "/protected/dashboard",
+            redirect: true
+          })
+        }}
+      >
+        <button type="submit">Signin with Google</button>
+      </form>
+    </div>
+  )
 }
