@@ -33,7 +33,7 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   //Relations
-  author  User @relation(fields:[authorId], references: [id])
+  author  User @relation(fields:[authorId], references: [id], onDelete: Cascade) //on delete cascade permet de supprimer tous les post d'un user si le user est supprimé
   authorId String
 
   @@index([createdAt(sort:Desc)]) //optimisation performance : créé un index pour que les post soient triés par date, le plus récent en premier. Evite d'avoir à faire le trie en front à chaque requête get
