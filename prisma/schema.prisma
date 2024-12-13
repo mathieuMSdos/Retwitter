@@ -24,7 +24,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relations
-  posts Post[] //1:n soit 1 user peux avoir plusieurs posts
+  posts Post[] //1:n = 1 user peux avoir plusieurs posts
 }
 
 model Post {

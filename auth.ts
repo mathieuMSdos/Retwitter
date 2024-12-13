@@ -24,6 +24,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           token.email = user.email;
           token.name = user.name;
           token.picture = user.image;
+          
         }
   
         if (!token.id) {
