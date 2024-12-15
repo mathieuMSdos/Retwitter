@@ -83,7 +83,8 @@ export const { handlers, auth, signIn, signOut, url, baseUrl } = NextAuth({
       return updatedSession;
     },
 
-    // Ajout de la gestion de redirection
+
+    // Ajout de la gestion de redirection ok
     redirect({baseUrl }) {
       return `${baseUrl}/protected/onboardingPage`;
     },
