@@ -15,6 +15,7 @@ model User {
   image         String?   
   username      String?         @unique
   displayName   String       @default("New User")
+  hasCompletedOnboarding    Boolean @default(false)
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
@@ -60,6 +61,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([provider, providerAccountId])
+  
 }
  
 model Session {

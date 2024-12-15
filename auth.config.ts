@@ -12,23 +12,28 @@ export default {
   pages: {
     signIn: "/",
   },
-  callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
-      const isOnDashboard = nextUrl.pathname.startsWith("/protected");
+  // callbacks: {
+  //   authorized({ auth, request: { nextUrl } }) {
+  //     const isLoggedIn = !!auth?.user;
+  //     const isOnProtected = nextUrl.pathname.startsWith("/protected");
+  //     const isAuthRoute = nextUrl.pathname.startsWith("/api/auth");
 
-      // Ajout d'une vérification plus permissive pendant l'authentification
-      if (nextUrl.pathname.startsWith("/api/auth")) {
-        return true;
-      }
+  //     // Toujours autoriser les routes d'authentification
+  //     if (isAuthRoute) {
+  //       return true;
+  //     }
 
-      if (isOnDashboard) {
-        if (isLoggedIn) return true;
-        return false;
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL("/protected/dashboard", nextUrl));
-      }
-      return true;
-    },
-  },
+  //     // Pour les routes protégées
+  //     if (isOnProtected) {
+  //       if (isLoggedIn) {
+  //         return true; // Utilisateur connecté -> accès autorisé
+  //       } else {
+  //         return Response.redirect(new URL("/", nextUrl)); // Non connecté -> redirection vers l'accueil
+  //       }
+  //     }
+
+  //     // Routes publiques -> accès autorisé pour tous
+  //     return true;
+  //   },
+  // },
 } satisfies NextAuthConfig;

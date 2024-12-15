@@ -6,10 +6,7 @@ export default function Home() {
       <form
         action={async () => {
           "use server"
-          await signIn("google", {
-            redirectTo: "/protected/dashboard",
-            redirect: true
-          })
+          await signIn("google")
         }}
       >
         <button type="submit">Signin with Google</button>
