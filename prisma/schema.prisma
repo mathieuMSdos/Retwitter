@@ -16,16 +16,15 @@ model User {
   username      String?         @unique
   displayName   String       @default("New User")
   hasCompletedOnboarding    Boolean @default(false)
-  accounts      Account[]
-  sessions      Session[]
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
- 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
   posts Post[] //1:n = 1 user peux avoir plusieurs posts
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
 }
 
 model Post {

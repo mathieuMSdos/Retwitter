@@ -1,12 +1,16 @@
+import OnBoardingFormMulti from "@/src/components/onBoardingSteps/OnBoardingFormMulti";
 
 
 const unboardingPage = () => {
+
+  
+
   return (
-    <div>
-      <h1>      Page d'unboarding
-      </h1>
-    </div>
+    <>
+    <h1>onBoarding process page</h1>
+    <OnBoardingFormMulti/>
+
+    </>
   );
 };
-
 export default unboardingPage;

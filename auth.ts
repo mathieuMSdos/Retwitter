@@ -4,8 +4,11 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { userNameGenerator } from "./lib/utils/usernameGenerator";
 import { prisma } from "./prisma";
+import { userSchema,  } from "./lib/schema/user.schema";
 
-export const { handlers, auth, signIn, signOut, url, baseUrl } = NextAuth({
+
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
@@ -17,12 +20,16 @@ export const { handlers, auth, signIn, signOut, url, baseUrl } = NextAuth({
     jwt: async ({ token, user }) => {
       try {
         if (user) {
-          token.id = user.id;
-          token.email = user.email;
-          token.name = user.name;
-          token.picture = user.image;
-          token.hasCompletedOnboarding = user.hasCompletedOnboarding;
+          // ZOD validation typage pour USER
+          const validatedUser = userSchema.parse(user)
+
+          token.id = validatedUser.id;
+          token.email = validatedUser.email;
+          token.name = validatedUser.name;
+          token.picture = validatedUser.image;
+          token.hasCompletedOnboarding = validatedUser.hasCompletedOnboarding;
         }
+        // console.log(user);
 
         if (!token.id) {
           return token;
@@ -30,7 +37,7 @@ export const { handlers, auth, signIn, signOut, url, baseUrl } = NextAuth({
 
         const dbUser = await prisma.user.findUnique({
           where: {
-            id: token.id,
+            id: token.id as string,
           },
           select: {
             username: true,
@@ -64,6 +71,7 @@ export const { handlers, auth, signIn, signOut, url, baseUrl } = NextAuth({
         return token;
       }
     },
+    
 
     session: async ({ session, token }) => {
       const updatedSession = {
@@ -83,9 +91,8 @@ export const { handlers, auth, signIn, signOut, url, baseUrl } = NextAuth({
       return updatedSession;
     },
 
-
     // Ajout de la gestion de redirection ok
-    redirect({baseUrl }) {
+    redirect({ baseUrl }) {
       return `${baseUrl}/protected/onboardingPage`;
     },
 
@@ -96,7 +103,7 @@ export const { handlers, auth, signIn, signOut, url, baseUrl } = NextAuth({
       const isAuthRoute = nextUrl.pathname.startsWith("/api/auth");
 
       if (isAuthRoute) return true;
-      
+
       if (isOnDashboard && !isLoggedIn) {
         return false;
       }
@@ -144,5 +151,5 @@ export const { handlers, auth, signIn, signOut, url, baseUrl } = NextAuth({
         throw error;
       }
     },
-  }
+  },
 });
